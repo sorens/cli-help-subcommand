@@ -17,10 +17,10 @@ var (
 				Usage:  "the first command",
 				Action: firstAction,
 				Before: func(c *cli.Context) error {
-					fmt.Printf("DBG => before %q; args: %q\n", c.Command.Name, c.Args())
+					fmt.Printf("DBG => before %q; args: %q, ctx: %v\n", c.Command.Name, c.Args(), c != nil)
 					if c.NArg() < 1 {
 						fmt.Printf("DBG => not enough args, show help and exit for %q\n", c.Command.Name)
-						cli.ShowCommandHelpAndExit(c, c.Command.Name, 1)
+						cli.ShowSubcommandHelpAndExit(c, 1)
 					}
 					return nil
 				},
@@ -31,10 +31,10 @@ var (
 						Usage:    "subcommand aa",
 						Action:   subcommandAAction,
 						Before: func(c *cli.Context) error {
-							fmt.Printf("DBG => before %q; args: %q\n", c.Command.Name, c.Args())
+							fmt.Printf("DBG => before %q; args: %q, ctx: %v\n", c.Command.Name, c.Args(), c != nil)
 							if c.NArg() < 1 {
 								fmt.Printf("DBG => not enough args, show help and exit for %q\n", c.Command.Name)
-								cli.ShowCommandHelpAndExit(c, c.Command.Name, 1)
+								cli.ShowSubcommandHelpAndExit(c, 1)
 							}
 							return nil
 						},
